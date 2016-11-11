@@ -20,7 +20,19 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+
+    externalScriptTags: [
+      {
+        src: '/fake.js',
+        async: true,
+        'data-test': 'for-testing'
+      },
+      {
+        src: '/bar.js',
+        'data-test': 'for-testing'
+      },
+    ]
   };
 
   if (environment === 'development') {
