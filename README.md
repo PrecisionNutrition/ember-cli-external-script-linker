@@ -1,27 +1,34 @@
-# Ember-cli-external-script-linker
+# ember-cli-external-script-linker [![Build Status](https://travis-ci.org/PrecisionNutrition/ember-cli-external-script-linker.svg?branch=master)](https://travis-ci.org/PrecisionNutrition/ember-cli-external-script-linker)
 
-This README outlines the details of collaborating on this Ember addon.
+This addon allows for programmatic insertion of your external style sheets so that you don't have to see annoying 404s in your test environment, or what have you.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-cli-external-script-linker`
-* `npm install`
-* `bower install`
+* `ember install ember-cli-external-script-linker`
 
-## Running
+In your `config/environment.js` file:
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+```javascript
+module.exports = function(environment) {
+  var ENV = {
+    externalScriptTags: [
+      {
+        src: '/foo.js',
+        async: true,
+      },
+      {
+        src: '/bar.js',
+        'data-foo': 'cheese',
+      },
+    ],
+  };
+});
+```
 
-## Running Tests
+And we insert these into the `{{head-footer}}` of your `app/index.html` file as such:
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+```html
+  <script src="/foo.js" async="true"></script>
+  <script src="/bar.js" data-foo="cheese"></script>
+</head>
+```
