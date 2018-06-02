@@ -1,29 +1,29 @@
-import { test } from 'qunit';
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
-import Ember from 'ember';
+import { module, test } from 'qunit';
+import { visit } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 
-moduleForAcceptance('Acceptance | it works');
+module('Acceptance | it works', function(hooks) {
+  setupApplicationTest(hooks);
 
-test('tags are inserted correctly', function(assert) {
-  visit('/');
+  test('tags are inserted correctly', async function(assert) {
+    await visit('/');
 
-  andThen(function() {
-    let bothTags = Ember.$('script[data-test="for-testing"]');
+    let bothTags = document.querySelectorAll('script[data-test="for-testing"]');
 
     assert.equal(bothTags.length, 2, 'both tags inserted');
 
-    let asyncTag = Ember.$('script[src="/fake.js"]');
+    let asyncTag = document.querySelector('script[src="/fake.js"]');
 
     assert.equal(
-      asyncTag.prop('async'),
-      true,
+      asyncTag.getAttribute('async'),
+      'true',
       'async attribute correctly added'
     );
 
-    let otherTag = Ember.$('script[src="/bar.js"]');
+    let otherTag = document.querySelector('script[src="/bar.js"]');
 
     assert.ok(
-      otherTag.length,
+      otherTag,
       'other tag also there'
     );
   });
