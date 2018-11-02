@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-cli-external-script-linker',
+  name: require('./package').name,
 
   contentFor(type, config) {
     if (type === 'head-footer') {
