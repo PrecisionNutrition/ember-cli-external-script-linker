@@ -3,6 +3,12 @@
 module.exports = {
   name: require('./package').name,
 
+  included() {
+    this._super.included.apply(this, arguments);
+
+    this.ui.writeDeprecateLine('[ember-cli-external-script-linker] This project is deprecated and will no longer receive updates. Please use https://github.com/ronco/ember-cli-head instead.');
+  },
+
   contentFor(type, config) {
     if (type === 'head-footer') {
       let scriptOptions = config.externalScriptTags || [];
